@@ -1,0 +1,65 @@
+group 'com.bigstep'
+version '1.0-SNAPSHOT'
+
+
+
+
+allprojects {
+
+
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'application'
+    apply plugin: 'idea'
+
+
+}
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = JavaVersion.VERSION_1_8
+//noinspection GroovyUnusedAssignment
+targetCompatibility = JavaVersion.VERSION_1_8
+
+mainClassName = "com.bigstep.GoomusicSongMain"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+
+    compile 'com.couchbase.client:java-client:2.2.1'
+    runtime 'com.couchbase.client:java-client:2.2.1'
+
+    compile group: 'io.advantageous.qbit', name:'qbit-admin', version: '0.9.1.RELEASE'
+    compile group: 'io.advantageous.qbit', name:'qbit-vertx', version: '0.9.1.RELEASE'
+
+    runtime group: 'io.advantageous.qbit', name:'qbit-admin', version: '0.9.1.RELEASE'
+    runtime group: 'io.advantageous.qbit', name:'qbit-vertx', version: '0.9.1.RELEASE'
+
+
+    compile "org.slf4j:slf4j-api:[1.7,1.8)"
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'com.google.code.gson:gson:2.4'
+    runtime 'com.google.code.gson:gson:2.4'
+
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    compile 'javax.websocket:javax.websocket-api:1.0'
+    compile 'org.mockito:mockito-all:2.0.2-beta'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+idea {
+    project {
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+}
+
+run {
+    /* Can pass all the properties: */
+    systemProperties System.getProperties()
+
+}

@@ -1,0 +1,41 @@
+</html>
+<body>
+<pre id="content"></pre>
+</body>
+<script type="text/javascript">
+            if ("WebSocket" in window)
+            {
+               // Let us open a web socket
+               var ws = new WebSocket("ws://localhost:15000/");
+				
+               ws.onopen = function()
+               {
+                  // Web Socket is connected, send data using send()
+			
+                  ws.send("gob");
+//                  alert("Message is sent...");
+               };
+				
+               ws.onmessage = function (evt) 
+               { 
+                  var received_msg = evt.data;
+		  document.getElementById("content").innerHTML += received_msg+"<br/>";
+//                  alert("Message is received..."+received_msg);
+               };
+				
+               ws.onclose = function()
+               { 
+                  // websocket is closed.
+
+		  document.getElementById("content").innerHTML += "<br/>Connection closed";
+               };
+            }
+            
+            else
+            {
+               // The browser doesn't support WebSocket
+               alert("WebSocket NOT supported by your Browser!");
+            }
+      </script>
+</html>
+
