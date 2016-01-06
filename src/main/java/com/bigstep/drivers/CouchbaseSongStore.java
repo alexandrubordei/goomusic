@@ -9,6 +9,8 @@ import com.couchbase.client.java.document.JsonDocument;
 import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.view.DefaultAsyncViewResult;
 import com.couchbase.client.java.view.ViewQuery;
+import com.couchbase.client.java.view.ViewResult;
+import com.couchbase.client.java.view.ViewRow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Observable;
@@ -76,12 +78,17 @@ public class CouchbaseSongStore implements SongStore {
             public void onNext(Object o) {
                 DefaultAsyncViewResult result= (DefaultAsyncViewResult)o;
                 if(result.success()) {
+                    logger.debug("Subscriber.onNext");
                     result.rows().forEach(
                             row -> {
                                 Song song=Song.createFromJson(row.value().toString());
+                                logger.debug("Subscriber.onNext.rows.foreach title="+song.title);
                                 subscriber.onNext(song);
                             },
-                            error -> error.printStackTrace()
+                            error -> {
+                                logger.error(error.getMessage());
+                                error.printStackTrace();
+                            }
                     );
                 }
 
@@ -92,6 +99,19 @@ public class CouchbaseSongStore implements SongStore {
                 .async()
                 .query(ViewQuery.from("song","artist").key(artist))
                 .subscribe(wrapperSubscriber);
+    }
+
+
+    public List<Song> getSongByArtist(String artist) {
+
+        List<Song> list=new ArrayList<Song>();
+
+        ViewResult result=bucket.query(ViewQuery.from("song","artist").key(artist));
+
+        for (ViewRow row : result)
+            list.add(Song.createFromJson(row.value().toString()));
+
+        return list;
     }
 
     public Subscription getSongAsync(String id, Subscriber subscriber)

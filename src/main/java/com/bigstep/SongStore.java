@@ -14,6 +14,7 @@ public interface SongStore {
     Subscription getSongAsync(String id, Subscriber subscriber);
     Subscription searchSongAsync(String queryTerm, Subscriber subscriber);
     Subscription getSongByArtistAsync(String artist, Subscriber<Song> subscriber);
+    List<Song> getSongByArtist(String artist);
     List<Song> getSongSimilars(Song song);
 }
 

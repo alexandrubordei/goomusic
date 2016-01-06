@@ -40,6 +40,11 @@ public class FileSystemSongStore implements SongStore {
         return null;
     }
 
+    @Override
+    public List<Song> getSongByArtist(String artist) {
+        return null;
+    }
+
     public Subscription getSongByArtistAsync(String artist, Subscriber subscriber) {
         return null;
     }

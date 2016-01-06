@@ -1,41 +1,81 @@
 </html>
 <body>
+<h2>Gooooooomusic</h2>
+
+<input id="q" type="text" onsubmit="search()"/>
+<button type="button" onclick="search()">Search</button>
+
 <pre id="content"></pre>
 </body>
 <script type="text/javascript">
+
+function init()
+{
+
+
             if ("WebSocket" in window)
-            {
+               {
                // Let us open a web socket
                var ws = new WebSocket("ws://localhost:15000/");
-				
+
                ws.onopen = function()
                {
-                  // Web Socket is connected, send data using send()
-			
-                  ws.send("gob");
-//                  alert("Message is sent...");
+                    log("Socket open");
                };
-				
-               ws.onmessage = function (evt) 
-               { 
-                  var received_msg = evt.data;
-		  document.getElementById("content").innerHTML += received_msg+"<br/>";
-//                  alert("Message is received..."+received_msg);
-               };
-				
-               ws.onclose = function()
-               { 
-                  // websocket is closed.
 
-		  document.getElementById("content").innerHTML += "<br/>Connection closed";
+               ws.onmessage = function (evt)
+               {
+                    var received_msg = evt.data;
+		           // log("Received "+received_msg);
+
+		           var obj = JSON.parse(received_msg);
+		           //log("length="+obj.length);
+		           for(i=0;i<obj.length;i++)
+		            log("<strong>"+obj[i].artist+"</strong>-"+obj[i].title);
+
+               };
+
+               ws.onclose = function()
+               {
+
+		        log("Connection closed");
                };
             }
-            
             else
             {
                // The browser doesn't support WebSocket
                alert("WebSocket NOT supported by your Browser!");
             }
-      </script>
+
+            window.ws=ws;
+}
+
+function search()
+{
+
+		  // Web Socket is connected, send data using send()
+
+          //get data from
+          var queryTerm = document.getElementById("q").value;
+          document.getElementById("content").innerHTML="";
+
+          window.ws.send(queryTerm);
+
+          log("Searching for "+queryTerm);
+
+
+}
+
+function log(text)
+{
+    document.getElementById("content").innerHTML +=text+ "<br/>";
+}
+
+
+
+init();
+
+</script>
+
 </html>
 

@@ -28,6 +28,12 @@ public class DummySongStore implements SongStore{
     {
         return null;
     }
+
+    @Override
+    public List<Song> getSongByArtist(String artist) {
+        return null;
+    }
+
     public Subscription getSongByArtistAsync(String artist, Subscriber subscriber) {return null; }
     public Subscription getSongAsync(String id, Subscriber subscriber) {return null;}
     public List<Song>   getSongSimilars(Song song){return null;}

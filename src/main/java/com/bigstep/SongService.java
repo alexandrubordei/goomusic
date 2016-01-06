@@ -47,47 +47,88 @@ public class SongService {
     }
 
 
-    public HttpServer createServer() {
+    /**
+     * @param server the httpServer to bind to. If null, it will create one from scratch.
+
+     */
+    public HttpServer createServer(HttpServer server) {
 
         SongStore songStore = getSongStore();
 
+        HttpServer httpServer=server;
 
-        //build the http server
-        HttpServer httpServer = httpServerBuilder()
-                .setPort(getPort())
-                .build();
+        if(server==null) {
+            //build the http server
+            httpServer = httpServerBuilder()
+                    .setPort(getPort())
+                    .build();
+        }
+
 
         httpServer.setWebSocketMessageConsumer(
                 webSocketMessage -> {
-                        //upon message arrival, perform search
-                        Subscriber<Song> subscriber = new Subscriber<Song>()
-                        {
-                            @Override
-                            public void onNext(Song song) {
-                                //send this song
-                                webSocketMessage.getSender().sendText(song.toJson());
-                                //send it's similars
-                                List<Song> similars=songStore.getSongSimilars(song);
-                                logger.debug("+++++++++++++++Similars:"+similars.size());
-                                for(Song similar: similars) {
-                                    logger.debug("+++++++++++++++Similars:Sending"+similar.artist);
-                                    webSocketMessage.getSender().sendText(similar.toJson());
-                                }
 
+                    String receivedText = webSocketMessage.getMessage().toString();
+                    logger.debug("Received:"+receivedText);
+
+                    /*
+                    //upon message arrival, perform search
+                    Subscriber<Song> subscriber = new Subscriber<Song>()
+                    {
+                        @Override
+                        public void onNext(Song song) {
+                            //send this song
+                            webSocketMessage.getSender().sendText(song.toJson());
+                            //send it's similars
+                            List<Song> similars=songStore.getSongSimilars(song);
+                            logger.debug("+++++++++++++++Similars:"+similars.size());
+                            for(Song similar: similars) {
+                                logger.debug("+++++++++++++++Similars:Sending"+similar.artist);
+                                webSocketMessage.getSender().sendText(similar.toJson());
                             }
 
-                            @Override
-                            public void onCompleted() { }
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
+                        @Override
+                        public void onCompleted() {
 
-                                webSocketMessage.getSender().sendText(e.getMessage());
-                            };
+                            webSocketMessage.getSender().sendText("--completed");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                            webSocketMessage.getSender().sendText(e.getMessage());
+                        };
 
                     };
 
-                    songStore.getSongByArtistAsync(webSocketMessage.getMessage().toString(), subscriber);
+
+
+
+                    songStore.getSongByArtistAsync(receivedText, subscriber);
+                    */
+
+                    String artist= receivedText.toLowerCase();
+                    //send the song itself
+                    List<Song> results= songStore.getSongByArtist(artist);
+                    if(!results.isEmpty()) {
+                        List<Song> similarArtists = songStore.getSongSimilars(results.get(0));
+                       results.addAll(similarArtists);
+                    }
+
+                    String text="[";
+                    boolean first=true;
+                    for(Song song: results) {
+                        if (!first)
+                            text += ",";
+                        else
+                            first = false;
+                        text += song.toJson();
+                    }
+                    text+="]";
+                    webSocketMessage.getSender().sendText(text);
+
 
                 }
         );
@@ -98,7 +139,7 @@ public class SongService {
 
     public void start()
     {
-        HttpServer server=this.createServer();
+        HttpServer server=this.createServer(null);
         server.start();
     }
 
