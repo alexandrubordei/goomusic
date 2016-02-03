@@ -46,6 +46,7 @@ public class SongService extends AbstractVerticle {
 
         Observable<Song> similars = songsWithThisArtist
                 .flatMap(s -> Observable.from(s.similars))
+                .limit(100)
                 .distinct()
                 .flatMap(s -> songStore.getSongByIDAsync(s.get(0)));
 

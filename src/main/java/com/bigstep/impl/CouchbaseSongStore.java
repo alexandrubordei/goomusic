@@ -60,7 +60,7 @@ public class CouchbaseSongStore implements SongStore {
                         .where(lower(x("artist")).like(s(query))
 
                         ))
-                    .limit(1000)
+                    .limit(100)
                     .flatMap(AsyncN1qlQueryResult::rows)
 
                     .map(r -> Song.createFromJson(r.value().get(bucket.name()).toString()));
