@@ -14,7 +14,7 @@ import rx.plugins.RxJavaSchedulersHook;
  */
 public class GoomusicSongMain {
     private final static Logger logger = LoggerFactory.getLogger(GoomusicSongMain.class);
-
+    public static final String SONG_STORE_IMPL_PROPERTY = "com.bigstep.GoomusicSongMain.songStoreImpl";
 
 
     public static void main(final String... args) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
@@ -26,7 +26,7 @@ public class GoomusicSongMain {
         RxJavaSchedulersHook hook = RxHelper.schedulerHook(vertx);
         rx.plugins.RxJavaPlugins.getInstance().registerSchedulersHook(hook);
 
-        String songStoreImpl = System.getProperty("com.bigstep.GoomusicSongMain.songStoreImpl","com.bigstep.impl.CouchbaseSongStore");
+        String songStoreImpl = System.getProperty(SONG_STORE_IMPL_PROPERTY,"com.bigstep.impl.CouchbaseSongStore");
         Class<?> clazz = Class.forName(songStoreImpl);
         SongStore songStore = (SongStore)clazz.newInstance();
 

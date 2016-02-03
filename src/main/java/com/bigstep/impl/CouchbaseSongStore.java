@@ -35,6 +35,7 @@ public class CouchbaseSongStore implements SongStore {
     private Cluster cluster;
     private Bucket bucket;
 
+
     public CouchbaseSongStore()
     {
         String cbServers = System.getProperty(SERVERS_PROPERTY, "localhost");
@@ -55,12 +56,12 @@ public class CouchbaseSongStore implements SongStore {
                 .async()
                 //.query(ViewQuery.from("song", "artist").key(artist)) <-- way more efficient but only matches full words
                 .query(select("*")
-                        .from(i("lastfm_subset"))
+                        .from(i(bucket.name()))
                         .where(lower(x("artist")).like(s(query))
 
                         ))
                     .flatMap(AsyncN1qlQueryResult::rows)
-                    .map(r -> Song.createFromJson(r.value().get("lastfm_subset").toString()));
+                    .map(r -> Song.createFromJson(r.value().get(bucket.name()).toString()));
     }
 
     public Observable<Song> getSongByIDAsync(String songID)
