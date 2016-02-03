@@ -17,6 +17,8 @@ rm gradle-2.9-all.zip
 ```
 Build and install the app
 ```
+cd /opt/
+git clone 
 cd goomusic
 gradle installDist
 ```
@@ -27,9 +29,21 @@ rpm -i http://packages.couchbase.com/releases/4.0.0/couchbase-server-community-4
 #also follow: http://unix.stackexchange.com/questions/245303/failed-to-start-couchbase-server-service-unit-couchbase-server-service-failed-t
 ```
 
-Get the dataset
+Get and load the dataset
 ```
 curl -O http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_train.zip
  /opt/couchbase/bin/cbdocloader -u xxxxxxxx -p xxxxxxxxxx -n localhost -b lastfm lastfm_train.zip
 ```
 
+Create song/artist view (index)
+```
+function (doc, meta) {
+  emit(doc.artist.toLowerCase().replace(/ /g,''), doc);
+}
+```
+
+
+Run the app
+```
+/opt/goomusic/build/install/goomusic/bin/goomusic -Dcom.bigstep.GoomusicSongMain.songStoreImpl=com.bigstep.impl.CouchbaseSongStore -Dcom.bigstep.impl.CouchbaseSongStore.bucketName=lastfm -Dcom.bigstep.impl.CouchbaseSongStore.password=lastfm -Dcom.bigstep.impl.CouchbaseSongStore.cbServers=localhost
+```
