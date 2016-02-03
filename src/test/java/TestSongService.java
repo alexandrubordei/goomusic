@@ -1,158 +1,88 @@
+import com.bigstep.impl.FileSystemSongStore;
 import com.bigstep.Song;
 import com.bigstep.SongService;
 import com.bigstep.SongStore;
-
-
-import io.advantageous.qbit.http.client.HttpClient;
-import io.advantageous.qbit.http.server.HttpServer;
-import io.advantageous.qbit.http.websocket.WebSocket;
-
-
-
+import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpClient;
+import io.vertx.ext.unit.Async;
+import io.vertx.ext.unit.TestContext;
+import io.vertx.ext.unit.junit.VertxUnitRunner;
+import io.vertx.rx.java.RxHelper;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import rx.plugins.RxJavaSchedulersHook;
 
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import rx.Subscriber;
-
-
-
-import static io.advantageous.qbit.http.client.HttpClientBuilder.httpClientBuilder;
-import static io.advantageous.qbit.http.server.HttpServerBuilder.httpServerBuilder;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
-
-import javax.websocket.*;
-
-
+import javax.websocket.DeploymentException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
-
-import static org.mockito.Mockito.*;
 
 /**
  * Created by alexandrubordei on 01/11/2015.
  */
+@RunWith(VertxUnitRunner.class)
 public class TestSongService {
 
+    SongStore songStore;
 
-    static boolean executedTestCreateWebsocketConsumer=false;
-
-    public ArrayList getMockSimilarArtists()
-    {
-        //prepare the songs to be delivered by the get similars
-        ArrayList similars=new ArrayList();
-        Song s1=new Song("lahlah","asd","asd","aa",null);
-        similars.add(s1);
-        Song s2=new Song("blabla","asd","asd","aa",null);
-        similars.add(s2);
-
-        return similars;
-
-    }
-
-    public Song createMockSong()
-    {
-        //create a specific song to be returned by the async method
-        Song song=new Song();
-        song.artist="dummy artist";
-        song.similars=new ArrayList();
-        song.similars.add(new ArrayList<>(Arrays.asList("TTTAAACCC","0.23323234")));
-        song.similars.add(new ArrayList<>(Arrays.asList("TTTAAACCCAASS11","0.4523234")));
-
-        return song;
-    }
+    Vertx vertx;
 
     @Before
-    public void prepareServer() throws InterruptedException {
-        //mock song store backend
-        SongStore songStore = mock(SongStore.class);
-        Song song = createMockSong();
+    public void prepareFsSongStore() {
+        vertx = Vertx.vertx();
 
-        //execute the subscriber callback and submit the song upon async exec
-        when(songStore.getSongByArtistAsync(anyString(), anyObject())).then(
-                new Answer() {
-                    @Override
-                    public Object answer(InvocationOnMock invocation) throws Throwable {
-                        Subscriber<Song> s=(Subscriber<Song>)invocation.getArguments()[1] ;
-                        s.onNext(song);
-                        return null;
-                    }
-                }
-        );
+        //need this for our use of rxjava.
+        RxJavaSchedulersHook hook = RxHelper.schedulerHook(vertx);
+        rx.plugins.RxJavaPlugins.getInstance().registerSchedulersHook(hook);
 
-
-        ArrayList similarArtists = getMockSimilarArtists();
-        //execute the subscriber callback and submit the song upon async exec
-        when(songStore.getSongSimilars(anyObject())).thenReturn(similarArtists);
-
-        //instantiate the service using the 'special' songStore
-        SongService service  = new SongService(songStore);
-
-        HttpServer httpServer = httpServerBuilder()
-                .setPort(32000)
-                .build();
-
-        service.createServer(httpServer).start();
-
-
-        Thread.sleep(5000);
-
+        URL url = this.getClass().getResource("/A/A/A/TRAAAAW128F429D538.json");
+        String root = Paths.get(url.getFile()).getParent().getParent().getParent().getParent().toString();
+        System.setProperty(FileSystemSongStore.ROOT_PATH_PROPERTY, root);
+        songStore = new FileSystemSongStore();
     }
+
 
     @Test
-    public void testCreateWebsocketConsumer() throws IllegalAccessException, ClassNotFoundException, InstantiationException, IOException, DeploymentException, InterruptedException {
-
-        ArrayList similarArtists = getMockSimilarArtists();
-        Song song = createMockSong();
-
-        //Create a websocket client to port 15000
-        HttpClient httpClient = httpClientBuilder().setPort(32000).build();
-        httpClient.startClient();
-        WebSocket webSocket = httpClient.createWebSocket("/");
+    public void testSongService(TestContext context) throws IllegalAccessException, ClassNotFoundException, InstantiationException, IOException, DeploymentException, InterruptedException {
 
 
+        String queryTerm = "casual";
+        List<String> expected = Arrays.asList("TRAAAAW128F429D538", "TRAAABD128F429CF47", "TRAAADZ128F9348C2E", "TRAAAMQ128F1460CD3");
 
-        webSocket.setTextMessageConsumer(x->{
-            System.out.println("received="+x);
-            Song receivedSong=Song.createFromJson(x);
+        SongService service = new SongService(songStore);
+        vertx.deployVerticle(service);
 
-            Song s1=(Song)similarArtists.get(0);
-            Song s2=(Song)similarArtists.get(1);
+        Async async = context.async(expected.size()+1);
 
-            assert( receivedSong.artist.equals(song.artist)||
-                    receivedSong.artist.equals(s1.artist)||
-                    receivedSong.artist.equals(s2.artist));
+        HttpClient client = vertx.createHttpClient();
+        client.websocket(service.getPort(), "localhost", "/", ws -> {
+            ws.handler(b -> {
 
-            System.out.println("received "+receivedSong.artist);
+                String str = b.toString();
 
-            this.executedTestCreateWebsocketConsumer=true;
+                System.out.println(str);
 
-        } );
+                if(str.equals(SongService.COMPLETED))
+                    async.complete();
+                else {
+                    Song song = Song.createFromJson(b.toString());
+                    System.out.println(song.track_id);
 
-        webSocket.openAndWait();
+                    context.assertTrue(expected.contains(song.track_id));
+                    async.countDown();
+                }
+            });
+            ws.write(Buffer.buffer(queryTerm));
+        });
 
+        async.awaitSuccess();
 
-     /* Send some messages. */
-        webSocket.sendText("anything");
-     //   webSocket.sendText("anything");
-     //   webSocket.sendText("anything");
-      //  webSocket.sendText("anything");
-
-        Thread.sleep(1000);
-
-        assertEquals(true, this.executedTestCreateWebsocketConsumer);
-
-
-
-        ///Sys.sleep(1000);
-        webSocket.close();
-
-        //verify(songStore).getSongSimilars(anyObject());
 
     }
+
 }

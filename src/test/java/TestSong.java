@@ -22,9 +22,9 @@ public class TestSong {
     public void testFileSystemSongStore() throws Exception {
 
         Song song = Song.createFromJson(getResource("A/A/A/TRAAAAW128F429D538.json"));
-        assertEquals("Casual",song.artist);
-        assert(false==song.similars.isEmpty());
-        assertEquals("I Didn't Mean To",song.title);
+        assertEquals("Casual", song.artist);
+        assert (false == song.similars.isEmpty());
+        assertEquals("I Didn't Mean To", song.title);
     }
 
 }

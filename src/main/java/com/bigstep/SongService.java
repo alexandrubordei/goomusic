@@ -1,146 +1,94 @@
 package com.bigstep;
 
-import com.couchbase.client.java.document.JsonDocument;
-import com.couchbase.client.java.view.AsyncViewRow;
-import com.google.gson.Gson;
-import io.advantageous.qbit.http.server.HttpServer;
-import io.advantageous.qbit.http.websocket.WebSocket;
-import io.advantageous.qbit.server.EndpointServerBuilder;
-import io.advantageous.qbit.server.ServiceEndpointServer;
-import io.advantageous.qbit.service.Startable;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.ServerWebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Observable;
 import rx.Subscriber;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import com.couchbase.client.java.view.DefaultAsyncViewResult;
-import rx.functions.Action1;
-import rx.functions.Func1;
-
-import static io.advantageous.qbit.http.server.HttpServerBuilder.httpServerBuilder;
 
 /**
  * Created by alexandrubordei on 02/11/2015.
  */
-public class SongService {
+public class SongService extends AbstractVerticle {
 
     private final static Logger logger = LoggerFactory.getLogger(SongService.class);
+    private final static String WEBSOCKET_PORT = "com.bigstep.SongService.port";
+    public  final static String COMPLETED = "------------completed--------";
+    int port;
+    private HttpServer httpServer;
+    private SongStore songStore;
 
-    private final SongStore songStore;
+    public SongService(SongStore songStore) {
 
-    public SongService(SongStore sStore)
-    {
-        this.songStore = sStore;
+        port = Integer.parseInt(System.getProperty(WEBSOCKET_PORT, "15000"));
+        this.songStore = songStore;
     }
 
-    public SongStore getSongStore()
-    {
-        return songStore;
+    public HttpServer setHttpServer(HttpServer httpServer) {
+        return this.httpServer = httpServer;
     }
 
-    private int getPort()
-    {
-        return Integer.parseInt(System.getProperty("com.bigstep.SongServiceFactory.port","15000"));
+    public int getPort() {
+        return port;
     }
 
+    public void handleWebsocketMessage(ServerWebSocket ws, Buffer r) {
+        String query = r.getString(0, r.length());
+
+        logger.debug("Received:" + query);
+
+        Observable<Song> songsWithThisArtist = songStore.getSongByArtistAsync(query);
+        songsWithThisArtist.subscribe(s -> ws.write(Buffer.buffer(s.toJson())));
+
+        Observable<Song> similars = songsWithThisArtist
+                .flatMap(s -> Observable.from(s.similars))
+                .distinct()
+                .flatMap(s -> songStore.getSongByIDAsync(s.get(0)));
+
+        similars.subscribe(new Subscriber<Song>() {
+                               @Override
+                               public void onCompleted() {
+                                   ws.write(Buffer.buffer(COMPLETED));
+                               }
+
+                               @Override
+                               public void onError(Throwable throwable) {
+
+                               }
+
+                               @Override
+                               public void onNext(Song s) {
+                                    ws.write(Buffer.buffer(s.toJson()));
+                               }
+                           });
+    }
 
     /**
-     * @param server the httpServer to bind to. If null, it will create one from scratch.
-
+     * start verticle and listen for websocket connections and requests.
+     * Submit query on the event bus when received and reply with the response directly.
+     * <p>
+     * Initialises the httpServer if not already configured (by unit testing)
      */
-    public HttpServer createServer(HttpServer server) {
-
-        SongStore songStore = getSongStore();
-
-        HttpServer httpServer=server;
-
-        if(server==null) {
-            //build the http server
-            httpServer = httpServerBuilder()
-                    .setPort(getPort())
-                    .build();
-        }
+    @Override
+    public void start() {
 
 
-        httpServer.setWebSocketMessageConsumer(
-                webSocketMessage -> {
+        if (httpServer == null)
+            httpServer = vertx.createHttpServer();
 
-                    String receivedText = webSocketMessage.getMessage().toString();
-                    logger.debug("Received:"+receivedText);
+        httpServer.websocketHandler(ws -> ws.handler(r -> handleWebsocketMessage(ws, r)));
 
-                    /*
-                    //upon message arrival, perform search
-                    Subscriber<Song> subscriber = new Subscriber<Song>()
-                    {
-                        @Override
-                        public void onNext(Song song) {
-                            //send this song
-                            webSocketMessage.getSender().sendText(song.toJson());
-                            //send it's similars
-                            List<Song> similars=songStore.getSongSimilars(song);
-                            logger.debug("+++++++++++++++Similars:"+similars.size());
-                            for(Song similar: similars) {
-                                logger.debug("+++++++++++++++Similars:Sending"+similar.artist);
-                                webSocketMessage.getSender().sendText(similar.toJson());
-                            }
-
-                        }
-
-                        @Override
-                        public void onCompleted() {
-
-                            webSocketMessage.getSender().sendText("--completed");
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                            webSocketMessage.getSender().sendText(e.getMessage());
-                        };
-
-                    };
-
-
-
-
-                    songStore.getSongByArtistAsync(receivedText, subscriber);
-                    */
-
-                    String artist= receivedText.toLowerCase();
-                    //send the song itself
-                    List<Song> results= songStore.getSongByArtist(artist);
-                    if(!results.isEmpty()) {
-                        List<Song> similarArtists = songStore.getSongSimilars(results.get(0));
-                       results.addAll(similarArtists);
-                    }
-
-                    String text="[";
-                    boolean first=true;
-                    for(Song song: results) {
-                        if (!first)
-                            text += ",";
-                        else
-                            first = false;
-                        text += song.toJson();
-                    }
-                    text+="]";
-                    webSocketMessage.getSender().sendText(text);
-
-
-                }
-        );
-        logger.debug("createServer(): Initialised, returning server");
-        return httpServer;
+        httpServer.listen(port);
+        logger.info("Started websocket verticle on port " + port);
     }
 
-
-    public void start()
-    {
-        HttpServer server=this.createServer(null);
-        server.start();
+    @Override
+    public void stop() {
+        httpServer.close();
     }
 
 

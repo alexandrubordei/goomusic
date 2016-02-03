@@ -11,8 +11,6 @@
 
 function init()
 {
-
-
             if ("WebSocket" in window)
                {
                // Let us open a web socket
@@ -26,13 +24,22 @@ function init()
                ws.onmessage = function (evt)
                {
                     var received_msg = evt.data;
-		           // log("Received "+received_msg);
+		               var reader = new FileReader();
+                           //console.log(received_msg);
+                           reader.addEventListener("loadend", function() {
+                                // reader.result contains the contents of blob as a typed array
+                               //console.log("Received (decoded blob)"+reader.result);
+                                var result= reader.result;
+                                if(result == "------------completed--------")
+                                    log("<strong>Search Completed</strong>");
+                                else
+                                {
+                                    var obj = JSON.parse(reader.result);
+                                    log("<strong>"+obj.artist+"</strong>-"+obj.title);
+                                }
 
-		           var obj = JSON.parse(received_msg);
-		           //log("length="+obj.length);
-		           for(i=0;i<obj.length;i++)
-		            log("<strong>"+obj[i].artist+"</strong>-"+obj[i].title);
-
+                            });
+                           text=reader.readAsText(received_msg);
                };
 
                ws.onclose = function()
@@ -74,6 +81,7 @@ function log(text)
 
 
 init();
+
 
 </script>
 

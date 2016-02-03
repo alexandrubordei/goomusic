@@ -257,89 +257,59 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.4/b98251e078d1809f889324fe90dbc4996919c02a/gson-2.4-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.advantageous.boon:boon-json:0.5.6.RELEASE">
+    <library name="Gradle: io.netty:netty-buffer:4.0.33.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/advantageous/boon/boon-json/0.5.6.RELEASE/boon-json-0.5.6.RELEASE.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.0.33.Final/dd14c35b020af7aa1c6fed7ec5e67a2aa165619e/netty-buffer-4.0.33.Final.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.0.33.Final/b2a1d751dbedb28c9b2639a243af1dc5a6ce3e96/netty-buffer-4.0.33.Final-sources.jar!/" />
+      </SOURCES>
     </library>
-    <library name="Gradle: io.advantageous.boon:boon-reflekt:0.5.6.RELEASE">
+    <library name="Gradle: io.netty:netty-codec-http:4.0.33.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/advantageous/boon/boon-reflekt/0.5.6.RELEASE/boon-reflekt-0.5.6.RELEASE.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.0.33.Final/aec23f9837699cf1a900a3c86c2b314d30da2454/netty-codec-http-4.0.33.Final.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.0.33.Final/fb2b4e0643d77aa221c44f9e96526d75727b97d6/netty-codec-http-4.0.33.Final-sources.jar!/" />
+      </SOURCES>
     </library>
-    <library name="Gradle: io.advantageous.qbit:qbit-admin:0.9.1.RELEASE">
+    <library name="Gradle: io.netty:netty-codec:4.0.33.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/advantageous/qbit/qbit-admin/0.9.1.RELEASE/qbit-admin-0.9.1.RELEASE.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.0.33.Final/56c31f1e373a9374f56173383fe8b6e089ea0351/netty-codec-4.0.33.Final.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.0.33.Final/e0e10eafd9af7cd9cb15cd2b9dbbf70b9917adf0/netty-codec-4.0.33.Final-sources.jar!/" />
+      </SOURCES>
     </library>
-    <library name="Gradle: io.advantageous.qbit:qbit-consul-client:0.9.1.RELEASE">
+    <library name="Gradle: io.netty:netty-common:4.0.33.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/advantageous/qbit/qbit-consul-client/0.9.1.RELEASE/qbit-consul-client-0.9.1.RELEASE.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.0.33.Final/1a1fde71cb95a6e18754b0fd7ac6749f15a86543/netty-common-4.0.33.Final.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.0.33.Final/ba1fc4f5078e63c66f006e9e2e20f23a1c4ae1d5/netty-common-4.0.33.Final-sources.jar!/" />
+      </SOURCES>
     </library>
-    <library name="Gradle: io.advantageous.qbit:qbit-core:0.9.1.RELEASE">
+    <library name="Gradle: io.netty:netty-handler:4.0.33.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/advantageous/qbit/qbit-core/0.9.1.RELEASE/qbit-core-0.9.1.RELEASE.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.0.33.Final/88325df280c3ba83011cf442883f9f55dc83d5bb/netty-handler-4.0.33.Final.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.0.33.Final/bf873226b8ad30b4377aa2dd4217968239708ddb/netty-handler-4.0.33.Final-sources.jar!/" />
+      </SOURCES>
     </library>
-    <library name="Gradle: io.advantageous.qbit:qbit-vertx:0.9.1.RELEASE">
+    <library name="Gradle: io.netty:netty-transport:4.0.33.Final">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/advantageous/qbit/qbit-vertx/0.9.1.RELEASE/qbit-vertx-0.9.1.RELEASE.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.0.33.Final/287c2378318efc12d6bfe00835cd66317fc53dcd/netty-transport-4.0.33.Final.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: io.netty:netty-buffer:4.0.31.Final">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/netty/netty-buffer/4.0.31.Final/netty-buffer-4.0.31.Final.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: io.netty:netty-codec-http:4.0.31.Final">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/netty/netty-codec-http/4.0.31.Final/netty-codec-http-4.0.31.Final.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: io.netty:netty-codec:4.0.31.Final">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/netty/netty-codec/4.0.31.Final/netty-codec-4.0.31.Final.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: io.netty:netty-common:4.0.31.Final">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/netty/netty-common/4.0.31.Final/netty-common-4.0.31.Final.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: io.netty:netty-handler:4.0.31.Final">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/netty/netty-handler/4.0.31.Final/netty-handler-4.0.31.Final.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Gradle: io.netty:netty-transport:4.0.31.Final">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/netty/netty-transport/4.0.31.Final/netty-transport-4.0.31.Final.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.0.33.Final/881cb6a5e584ed7764090acf9f8b85f8e02932c2/netty-transport-4.0.33.Final-sources.jar!/" />
+      </SOURCES>
     </library>
     <library name="Gradle: io.reactivex:rxjava:1.0.14">
       <CLASSES>
@@ -348,26 +318,59 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: io.vertx:vertx-auth-common:3.1.0">
+    <library name="Gradle: io.reactivex:rxjava:1.0.17">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-auth-common/3.1.0/vertx-auth-common-3.1.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.0.17/1a653d18a3e41fae66a473d172649a0625cff107/rxjava-1.0.17.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.0.17/416d4c2b53fe4a56e295a7923d07935bc1e2a45b/rxjava-1.0.17-sources.jar!/" />
+      </SOURCES>
     </library>
-    <library name="Gradle: io.vertx:vertx-core:3.1.0">
+    <library name="Gradle: io.vertx:vertx-codegen:3.2.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-core/3.1.0/vertx-core-3.1.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-codegen/3.2.0/d3d896324d679a04fb387940568e1cd5e5980c54/vertx-codegen-3.2.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-codegen/3.2.0/161352888806f61199285a44a2a5f88ce91a2c77/vertx-codegen-3.2.0-sources.jar!/" />
+      </SOURCES>
     </library>
-    <library name="Gradle: io.vertx:vertx-web:3.1.0">
+    <library name="Gradle: io.vertx:vertx-core:3.2.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/io/vertx/vertx-web/3.1.0/vertx-web-3.1.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-core/3.2.0/a3c6fedd64286109937c01948cf0464b4e84e47a/vertx-core-3.2.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-core/3.2.0/38bd5992f6f172ebf2280915bf6a1440d11dfe8c/vertx-core-3.2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.vertx:vertx-mongo-client:3.2.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-mongo-client/3.2.0/bcb5722f785ce202362ec1f3ac38ee14218449f9/vertx-mongo-client-3.2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-mongo-client/3.2.0/b155b5ff52b275e38a026c05dc29bdb11f451208/vertx-mongo-client-3.2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.vertx:vertx-rx-java:3.2.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-rx-java/3.2.0/270783b359fa62c032b828abd1a296897e02badd/vertx-rx-java-3.2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-rx-java/3.2.0/c2688f582bca1159caef4501d4bd8f085e60a04/vertx-rx-java-3.2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.vertx:vertx-unit:3.2.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-unit/3.2.0/da9dd2011081c536179fee04a188f4a4d9e386c8/vertx-unit-3.2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-unit/3.2.0/8d44bf35aacee0d4a9ad9d5859c2bb13048cfd33/vertx-unit-3.2.0-sources.jar!/" />
+      </SOURCES>
     </library>
     <library name="Gradle: javax.servlet:javax.servlet-api:3.1.0">
       <CLASSES>
@@ -414,12 +417,59 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-all/2.0.2-beta/c74a0fec568802cfbc888865262b6f8186643e3a/mockito-all-2.0.2-beta-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.slf4j:slf4j-api:1.7.12">
+    <library name="Gradle: org.mongodb:bson:3.2.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/bson/3.2.0/d33524993e65abc5ec52d8d7f3be4b4fed147031/bson-3.2.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/bson/3.2.0/924b1aaac7a25fb8a12da0a5643f3443b2d4e9c3/bson-3.2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.mongodb:mongodb-driver-async:3.2.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-async/3.2.0/4f3e8a6f370d30cfd002b048484be5757625fcdb/mongodb-driver-async-3.2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-async/3.2.0/8b781b9b0cdbc41facc48c0253158788812d7f7f/mongodb-driver-async-3.2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.mongodb:mongodb-driver-core:3.2.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-core/3.2.0/e9bc5b1eaa12f2b5779435d73860a3f4fe3beee0/mongodb-driver-core-3.2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-core/3.2.0/c688b13661b53780c325fc4e194ce244018c6434/mongodb-driver-core-3.2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.mongodb:mongodb-driver-rx:1.2.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-rx/1.2.0/584bde870a411b5973796f3aa46d9f3181aa8ce9/mongodb-driver-rx-1.2.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongodb-driver-rx/1.2.0/32823b16247fe8c8e486faa4e064bdb54c051b2b/mongodb-driver-rx-1.2.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.mvel:mvel2:2.2.6.Final">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mvel/mvel2/2.2.6.Final/ed1d833f854028773df9619adfc705a513605e90/mvel2-2.2.6.Final.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mvel/mvel2/2.2.6.Final/d578f5040780c963a2f46e2a99c24827666a22c8/mvel2-2.2.6.Final-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.slf4j:slf4j-api:1.7.13">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/96e785df399a4e1a6c030877097807b7e18520cc/slf4j-api-1.7.13-sources.jar!/" />
+      </SOURCES>
     </library>
   </component>
 </project>

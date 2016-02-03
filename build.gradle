@@ -29,19 +29,17 @@ repositories {
 dependencies {
 
     compile 'com.couchbase.client:java-client:2.2.1'
-    runtime 'com.couchbase.client:java-client:2.2.1'
+    compile 'org.mongodb:mongodb-driver-rx:1.2.0'
 
-    compile group: 'io.advantageous.qbit', name:'qbit-admin', version: '0.9.1.RELEASE'
-    compile group: 'io.advantageous.qbit', name:'qbit-vertx', version: '0.9.1.RELEASE'
-
-    runtime group: 'io.advantageous.qbit', name:'qbit-admin', version: '0.9.1.RELEASE'
-    runtime group: 'io.advantageous.qbit', name:'qbit-vertx', version: '0.9.1.RELEASE'
-
+    compile 'io.vertx:vertx-core:3.2.0'
+    compile 'io.vertx:vertx-rx-java:3.2.0'
+    compile 'io.vertx:vertx-unit:3.2.0'
+    compile 'io.vertx:vertx-codegen:3.2.0'
+//    compile 'io.vertx:vertx-mongo-client:3.2.0'
 
     compile "org.slf4j:slf4j-api:[1.7,1.8)"
     compile 'ch.qos.logback:logback-classic:1.1.2'
     compile 'com.google.code.gson:gson:2.4'
-    runtime 'com.google.code.gson:gson:2.4'
 
     compile 'javax.servlet:javax.servlet-api:3.1.0'
 
