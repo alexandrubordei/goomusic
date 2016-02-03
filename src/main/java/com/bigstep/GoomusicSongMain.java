@@ -26,7 +26,11 @@ public class GoomusicSongMain {
         RxJavaSchedulersHook hook = RxHelper.schedulerHook(vertx);
         rx.plugins.RxJavaPlugins.getInstance().registerSchedulersHook(hook);
 
-       SongStore songStore = new CouchbaseSongStore();
+        String songStoreImpl = System.getProperty("com.bigstep.GoomusicSongMain.songStoreImpl","com.bigstep.impl.CouchbaseSongStore");
+        Class<?> clazz = Class.forName(songStoreImpl);
+        SongStore songStore = (SongStore)clazz.newInstance();
+
+       //SongStore songStore = new CouchbaseSongStore();
        // SongStore songStore = new MongoSongStore();
 
         vertx.deployVerticle(new SongService(songStore));
