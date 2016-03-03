@@ -23,9 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.regex;
-import static com.mongodb.client.model.Filters.text;
+import static com.mongodb.client.model.Filters.*;
 
 
 /**
@@ -60,9 +58,8 @@ public class MongoSongStore implements SongStore {
 
     @Override
     public Observable<Song> getSongByArtistAsync(String query) {
-
         return mongoCollection
-                .find(regex("artist_lc", "/^"+query+"/"))
+                .find(and(lte("artist_lc", query),gte("artist_lc",query+"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")))
                 .toObservable()
                 .map(d -> Song.createFromJson(d.toJson()));
     }

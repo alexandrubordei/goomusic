@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4b2d3073-ba7f-4103-b2f1-bcf42efb46a9" name="Default" comment="Updated to view search">
+    <list default="true" id="4b2d3073-ba7f-4103-b2f1-bcf42efb46a9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bigstep/impl/CouchbaseSongStore.java" afterPath="$PROJECT_DIR$/src/main/java/com/bigstep/impl/CouchbaseSongStore.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java" afterPath="$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bigstep/SongService.java" afterPath="$PROJECT_DIR$/src/main/java/com/bigstep/SongService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bigstep/SongStore.java" afterPath="$PROJECT_DIR$/src/main/java/com/bigstep/SongStore.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/goomusic.iws" afterPath="$PROJECT_DIR$/goomusic.iws" />
     </list>
     <ignored path="goomusic.iws" />
@@ -200,12 +198,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MongoSongStore.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MongoSongStore.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="31" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
-              <folding />
+            <state vertical-scroll-proportion="0.7419355">
+              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -232,11 +232,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CouchbaseSongStore.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CouchbaseSongStore.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/CouchbaseSongStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.70219433">
-              <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -605,8 +605,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bigstep/GoomusicSongMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bigstep/SongService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bigstep/SongStore.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bigstep/impl/CouchbaseSongStore.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java" />
       </list>
     </option>
   </component>
@@ -1194,7 +1194,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456997910169</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Updated to view search">
+      <created>1457009114179</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1457009114179</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1625,14 +1631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/FileSystemSongStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/SongStore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1641,18 +1639,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/FileSystemSongStore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="31" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/CouchbaseSongStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70219433">
-          <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7419355">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -46,33 +46,15 @@ public class CouchbaseSongStore implements SongStore {
         bucket = cluster.openBucket(bucketName, password);
     }
 
-
-    /*
-    @Override
-    public Observable<Song> getSongByArtistAsync(String query) {
-
-        return bucket
-                .async()
-                .query(select("*")
-                        .from(i(bucket.name()))
-                        .where((x("artist")).like(s(query))
-                        ))
-                .limit(100)
-                .flatMap(AsyncN1qlQueryResult::rows)
-                .map(r -> Song.createFromJson(r.value().get(bucket.name()).toString()));
-    }
-    */
-
     @Override
     public Observable<Song> getSongByArtistAsync(String query) {
         return bucket
                 .async()
-                .query(ViewQuery.from("song", "artist").startKey(query).endKey(query+"zzzzzzzzzzzzzzzzzzz"))
+                .query(ViewQuery.from("song", "artist").startKey(query).endKey(query+"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"))
                 .limit(100)
                 .flatMap(AsyncViewResult::rows)
                 .map(r -> Song.createFromJson(r.value().toString()));
     }
-
 
     @Override
     public Observable<Song> getSongByIDAsync(String songID)
