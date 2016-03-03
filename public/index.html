@@ -2,7 +2,7 @@
 <body>
 <h2>Gooooooomusic</h2>
 
-<input id="q" type="text" onsubmit="search()"/>
+<input id="q" type="text"/>
 <button type="button" onclick="search()">Search</button>
 
 <pre id="content"></pre>
@@ -14,7 +14,7 @@ function init()
             if ("WebSocket" in window)
                {
                // Let us open a web socket
-               var ws = new WebSocket("ws://localhost:15000/");
+               var ws = new WebSocket("ws://instance-11039.bigstep.io:15000/");
 
                ws.onopen = function()
                {
@@ -23,15 +23,18 @@ function init()
 
                ws.onmessage = function (evt)
                {
-                    var received_msg = evt.data;
-		               var reader = new FileReader();
-                           //console.log(received_msg);
-                           reader.addEventListener("loadend", function() {
-                                // reader.result contains the contents of blob as a typed array
-                               //console.log("Received (decoded blob)"+reader.result);
+                        var received_msg = evt.data;
+                        var reader = new FileReader();
+                        reader.addEventListener("loadend", function() {
+                               //reader.result contains the contents of blob as a typed array
                                 var result= reader.result;
                                 if(result == "------------completed--------")
-                                    log("<strong>Search Completed</strong>");
+                                {
+                                    var duration=new Date() - window.searchstarted;
+                                    delete window.searchstarted    
+                                    log("<strong>Search Complete in "+duration+" milliseconds</strong>");
+                                    
+                                }
                                 else
                                 {
                                     var obj = JSON.parse(reader.result);
@@ -44,8 +47,7 @@ function init()
 
                ws.onclose = function()
                {
-
-		        log("Connection closed");
+                        log("Connection closed");
                };
             }
             else
@@ -55,22 +57,29 @@ function init()
             }
 
             window.ws=ws;
+
+           document.getElementById("q").onkeypress = function(evt) {
+                if(evt.keyCode === 13)
+                        search();
+           }
+
 }
 
 function search()
 {
+          if(window.searchstarted)
+          {
+                alert("Search in progress")
+                return;
+          }
 
-		  // Web Socket is connected, send data using send()
-
-          //get data from
           var queryTerm = document.getElementById("q").value;
           document.getElementById("content").innerHTML="";
 
           window.ws.send(queryTerm);
 
           log("Searching for "+queryTerm);
-
-
+          window.searchstarted=new Date(); 
 }
 
 function log(text)
@@ -84,6 +93,5 @@ init();
 
 
 </script>
-
 </html>
 
