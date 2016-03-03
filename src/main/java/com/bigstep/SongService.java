@@ -44,7 +44,7 @@ public class SongService extends AbstractVerticle {
         Observable<Song> songsWithThisArtist = songStore.getSongByArtistAsync(query);
         songsWithThisArtist.subscribe(s -> ws.write(Buffer.buffer(s.toJson())));
 
-        Observable<Song> similars = songsWithThisArtist
+        /*Observable<Song> similars = songsWithThisArtist
                 .flatMap(s -> Observable.from(s.similars))
                 .limit(100)
                 .distinct()
@@ -66,6 +66,7 @@ public class SongService extends AbstractVerticle {
                                     ws.write(Buffer.buffer(s.toJson()));
                                }
                            });
+         */
     }
 
     /**

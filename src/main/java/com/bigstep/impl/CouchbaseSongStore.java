@@ -53,18 +53,25 @@ public class CouchbaseSongStore implements SongStore {
 
 
         return bucket
-                .async()
-                //.query(ViewQuery.from("song", "artist").key(artist)) <-- way more efficient but only matches full words
-                .query(select("*")
+            .async()
+            .query(ViewQuery.from("song", "artist").startKey(query).endKey(query+"zzzzzzzzzzzzzzzzzzz"))
+                .limit(100)
+                .flatMap(AsyncViewResult::rows)
+
+                .map(r -> Song.createFromJson(r.value().toString()));
+    }
+    /*
+           return bucket
+               .async()
+               .query(select("*")
                         .from(i(bucket.name()))
                         .where(lower(x("artist")).like(s(query))
-
                         ))
-                    .limit(100)
-                    .flatMap(AsyncN1qlQueryResult::rows)
+                .limit(100)
+                .flatMap(AsyncN1qlQueryResult::rows)
+                .map(r -> Song.createFromJson(r.value().get(bucket.name()).toString()));
 
-                    .map(r -> Song.createFromJson(r.value().get(bucket.name()).toString()));
-    }
+     */
 
     public Observable<Song> getSongByIDAsync(String songID)
     {

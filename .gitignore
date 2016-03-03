@@ -3,5 +3,5 @@ build
 .idea
 .gradle
 out
-./goomusic.ipr
-./goomusic.iws
+goomusic.ipr
+goomusic.iws
