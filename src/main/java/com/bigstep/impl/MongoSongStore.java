@@ -58,14 +58,16 @@ public class MongoSongStore implements SongStore {
 
     }
 
-    public Observable<Song> getSongByArtistAsync(String artist) {
+    @Override
+    public Observable<Song> getSongByArtistAsync(String query) {
 
         return mongoCollection
-                .find(regex("artist", "^(?i)"+Pattern.quote(artist)))
+                .find(regex("artist_lc", "/^"+query+"/"))
                 .toObservable()
                 .map(d -> Song.createFromJson(d.toJson()));
     }
 
+    @Override
     public Observable<Song> getSongByIDAsync(String songID)
     {
          return mongoCollection

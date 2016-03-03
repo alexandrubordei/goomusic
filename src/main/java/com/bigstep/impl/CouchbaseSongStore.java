@@ -47,32 +47,34 @@ public class CouchbaseSongStore implements SongStore {
     }
 
 
-
+    /*
+    @Override
     public Observable<Song> getSongByArtistAsync(String query) {
 
-
-
         return bucket
-            .async()
-            .query(ViewQuery.from("song", "artist").startKey(query).endKey(query+"zzzzzzzzzzzzzzzzzzz"))
-                .limit(100)
-                .flatMap(AsyncViewResult::rows)
-
-                .map(r -> Song.createFromJson(r.value().toString()));
-    }
-    /*
-           return bucket
-               .async()
-               .query(select("*")
+                .async()
+                .query(select("*")
                         .from(i(bucket.name()))
-                        .where(lower(x("artist")).like(s(query))
+                        .where((x("artist")).like(s(query))
                         ))
                 .limit(100)
                 .flatMap(AsyncN1qlQueryResult::rows)
                 .map(r -> Song.createFromJson(r.value().get(bucket.name()).toString()));
+    }
+    */
 
-     */
+    @Override
+    public Observable<Song> getSongByArtistAsync(String query) {
+        return bucket
+                .async()
+                .query(ViewQuery.from("song", "artist").startKey(query).endKey(query+"zzzzzzzzzzzzzzzzzzz"))
+                .limit(100)
+                .flatMap(AsyncViewResult::rows)
+                .map(r -> Song.createFromJson(r.value().toString()));
+    }
 
+
+    @Override
     public Observable<Song> getSongByIDAsync(String songID)
     {
         return bucket
@@ -80,4 +82,6 @@ public class CouchbaseSongStore implements SongStore {
                 .get(songID)
                 .map( s -> Song.createFromJson(s.content().toString()));
     }
+
+
 }
