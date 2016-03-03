@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4b2d3073-ba7f-4103-b2f1-bcf42efb46a9" name="Default" comment="Updated mongo to index based search.">
+    <list default="true" id="4b2d3073-ba7f-4103-b2f1-bcf42efb46a9" name="Default" comment="Added limit to mongo results">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java" afterPath="$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/goomusic.iws" afterPath="$PROJECT_DIR$/goomusic.iws" />
     </list>
@@ -200,8 +200,8 @@
       <file leaf-file-name="MongoSongStore.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62903225">
-              <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.66129035">
+              <caret line="60" column="30" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -235,7 +235,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/CouchbaseSongStore.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+              <caret line="53" column="27" selection-start-line="53" selection-start-column="27" selection-end-line="53" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1205,7 +1205,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457015141555</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Updated mongo to index based search.">
+      <created>1457015487387</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1457015487387</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1264,7 +1270,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updated to view search" />
     <MESSAGE value="Updated mongo to index based search." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated mongo to index based search." />
+    <MESSAGE value="Added limit to mongo results" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added limit to mongo results" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1637,6 +1644,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/SongStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="55" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/FileSystemSongStore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1648,25 +1663,17 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/CouchbaseSongStore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="21" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+          <caret line="53" column="27" selection-start-line="53" selection-start-column="27" selection-end-line="53" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/SongStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="55" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bigstep/impl/MongoSongStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62903225">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.66129035">
+          <caret line="60" column="30" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

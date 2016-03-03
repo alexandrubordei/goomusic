@@ -59,7 +59,8 @@ public class MongoSongStore implements SongStore {
     @Override
     public Observable<Song> getSongByArtistAsync(String query) {
         return mongoCollection
-                .find(and(gte("artist_lc", query),lte("artist_lc",query+"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")))
+                .find(and(gte("artist_lc", query),lte("artist_lc", query + "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")))
+                .limit(100)
                 .toObservable()
                 .map(d -> Song.createFromJson(d.toJson()));
     }
