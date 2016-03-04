@@ -1,27 +1,16 @@
 package com.bigstep.impl;
 
 import com.bigstep.Song;
-import com.bigstep.SongService;
 import com.bigstep.SongStore;
-import com.couchbase.client.java.view.AsyncViewResult;
-import com.couchbase.client.java.view.AsyncViewRow;
-import com.couchbase.client.java.view.ViewQuery;
 import com.mongodb.ConnectionString;
-import com.mongodb.client.model.TextSearchOptions;
-import com.mongodb.rx.client.*;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
-
+import com.mongodb.rx.client.MongoClient;
+import com.mongodb.rx.client.MongoClients;
+import com.mongodb.rx.client.MongoCollection;
+import com.mongodb.rx.client.MongoDatabase;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Observable;
-
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.regex.Pattern;
 
 import static com.mongodb.client.model.Filters.*;
 
@@ -42,8 +31,7 @@ public class MongoSongStore implements SongStore {
     MongoDatabase mongoDatabase;
     MongoCollection<Document> mongoCollection;
 
-    public MongoSongStore()
-    {
+    public MongoSongStore() {
         String connectionString = System.getProperty(CONNECTION_STRING_PROPERTY, "mongodb://localhost");
         String databaseName = System.getProperty(DATABASE_NAME_PROPERTY, "default");
         String collectionName = System.getProperty(COLLECTION_NAME_PROPERTY, "default");
@@ -52,24 +40,23 @@ public class MongoSongStore implements SongStore {
         mongoDatabase = mongoClient.getDatabase(databaseName);
         mongoCollection = mongoDatabase.getCollection(collectionName);
 
-        logger.info("Initialized Mongo Driver with databaseName="+databaseName+" collectionName="+collectionName);
+        logger.info("Initialized Mongo Driver with databaseName=" + databaseName + " collectionName=" + collectionName);
 
     }
 
     @Override
     public Observable<Song> getSongByArtistAsync(String query) {
         return mongoCollection
-                .find(and(gte("artist_lc", query),lte("artist_lc", query + "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")))
+                .find(and(gte("artist_lc", query), lte("artist_lc", query + "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")))
                 .limit(100)
                 .toObservable()
                 .map(d -> Song.createFromJson(d.toJson()));
     }
 
     @Override
-    public Observable<Song> getSongByIDAsync(String songID)
-    {
-         return mongoCollection
-                .find(eq("track_id",songID))
+    public Observable<Song> getSongByIDAsync(String songID) {
+        return mongoCollection
+                .find(eq("track_id", songID))
                 .toObservable()
                 .map(d -> Song.createFromJson(d.toJson()));
     }
