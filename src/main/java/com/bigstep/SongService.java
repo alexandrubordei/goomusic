@@ -15,9 +15,9 @@ import rx.Subscriber;
  */
 public class SongService extends AbstractVerticle {
 
+    public final static String COMPLETED = "------------completed--------";
     private final static Logger logger = LoggerFactory.getLogger(SongService.class);
     private final static String WEBSOCKET_PORT = "com.bigstep.SongService.port";
-    public  final static String COMPLETED = "------------completed--------";
     int port;
     private HttpServer httpServer;
     private SongStore songStore;
@@ -28,6 +28,12 @@ public class SongService extends AbstractVerticle {
         this.songStore = songStore;
     }
 
+    /**
+     * Specify the httpServer used. This is usefull if multiple vertices use the
+     * same http server or it has to be initialised differently.
+     * @param httpServer the http server
+     * @return returns the provided http server
+     */
     public HttpServer setHttpServer(HttpServer httpServer) {
         return this.httpServer = httpServer;
     }
@@ -36,6 +42,12 @@ public class SongService extends AbstractVerticle {
         return port;
     }
 
+    /**
+     * Handle a message received on the websocket pipe. Every message is a search query.
+     *
+     * @param ws the ServerWebsocket channel that we have received this message on
+     * @param r the message buffer
+     */
     public void handleWebsocketMessage(ServerWebSocket ws, Buffer r) {
         String query = r.getString(0, r.length());
 
@@ -51,29 +63,29 @@ public class SongService extends AbstractVerticle {
                 .flatMap(s -> songStore.getSongByIDAsync(s.get(0)));
 
         similars.subscribe(new Subscriber<Song>() {
-                               @Override
-                               public void onCompleted() {
-                                   ws.write(Buffer.buffer(COMPLETED));
-                               }
+            @Override
+            public void onCompleted() {
+                ws.write(Buffer.buffer(COMPLETED));
+            }
 
-                               @Override
-                               public void onError(Throwable throwable) {
+            @Override
+            public void onError(Throwable throwable) {
 
-                               }
+            }
 
-                               @Override
-                               public void onNext(Song s) {
-                                    ws.write(Buffer.buffer(s.toJson()));
-                               }
-                           });
+            @Override
+            public void onNext(Song s) {
+                ws.write(Buffer.buffer(s.toJson()));
+            }
+        });
 
     }
 
     /**
-     * start verticle and listen for websocket connections and requests.
+     * Start verticle and listen for websocket connections and requests.
      * Submit query on the event bus when received and reply with the response directly.
      * <p>
-     * Initialises the httpServer if not already configured (by unit testing)
+     * Initialises the httpServer if not already configured.
      */
     @Override
     public void start() {

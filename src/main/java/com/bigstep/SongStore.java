@@ -14,7 +14,7 @@ public interface SongStore {
     Observable<Song> getSongByArtistAsync(String query);
     /**
      * Returns a specific song by ID"
-     * @param songID
+     * @param songID - the id of the song to search for in the form TRAAAAW.....
      * @return Observable of Song that matches the query
      */
     Observable<Song> getSongByIDAsync(String songID);
