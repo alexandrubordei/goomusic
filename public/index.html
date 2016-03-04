@@ -4,6 +4,8 @@
 
 <input id="q" type="text"/>
 <button type="button" onclick="search()">Search</button>
+&nbsp;
+<span id="status"></span>
 
 <pre id="content"></pre>
 </body>
@@ -14,11 +16,11 @@ function init()
             if ("WebSocket" in window)
                {
                // Let us open a web socket
-               var ws = new WebSocket("ws://instance-11039.bigstep.io:15000/");
+               var ws = new WebSocket("ws://"+window.location.hostname+":15000/");
 
                ws.onopen = function()
                {
-                    log("Socket open");
+                    set_status("Socket open");
                };
 
                ws.onmessage = function (evt)
@@ -32,13 +34,13 @@ function init()
                                 {
                                     var duration=new Date() - window.searchstarted;
                                     delete window.searchstarted    
-                                    log("<strong>Search Complete in "+duration+" milliseconds</strong>");
+                                    set_status("Search Complete in "+duration+" milliseconds");
                                     
                                 }
                                 else
                                 {
                                     var obj = JSON.parse(reader.result);
-                                    log("<strong>"+obj.artist+"</strong>-"+obj.title);
+                                    show_result(obj);
                                 }
 
                             });
@@ -47,7 +49,7 @@ function init()
 
                ws.onclose = function()
                {
-                        log("Connection closed");
+                        set_status("Connection closed");
                };
             }
             else
@@ -74,17 +76,36 @@ function search()
           }
 
           var queryTerm = document.getElementById("q").value;
-          document.getElementById("content").innerHTML="";
+          clear_results();
 
           window.ws.send(queryTerm);
 
-          log("Searching for "+queryTerm);
+          set_status("Searching for "+queryTerm);
           window.searchstarted=new Date(); 
 }
 
-function log(text)
+function clear_results()
 {
-    document.getElementById("content").innerHTML +=text+ "<br/>";
+          document.getElementById("content").innerHTML="";
+          window.results=0
+}
+
+/**
+* Displays the actual result. This also stops after receiving the first 100 results.
+*/
+function show_result(obj)
+{
+         if(window.results>100)
+                return;
+         var line="<strong>"+obj.artist+"</strong>-"+obj.title;
+
+         document.getElementById("content").innerHTML +=line+ "<br/>";
+         window.results++;
+}
+
+function set_status(text)
+{
+          document.getElementById("status").innerHTML=text;
 }
 
 
