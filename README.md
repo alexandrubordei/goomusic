@@ -47,3 +47,12 @@ Run the app
 ```
 /opt/goomusic/build/install/goomusic/bin/goomusic -Dcom.bigstep.GoomusicSongMain.songStoreImpl=com.bigstep.impl.CouchbaseSongStore -Dcom.bigstep.impl.CouchbaseSongStore.bucketName=lastfm -Dcom.bigstep.impl.CouchbaseSongStore.password=lastfm -Dcom.bigstep.impl.CouchbaseSongStore.cbServers=localhost
 ```
+
+It also supports mongo but you need to create another lowercase field within the dataset and also create indexes:
+```
+db.songs.find({}).forEach(function(doc){ db.songs.update( {_id:doc._id},
+			{ $set: {"artist_lc":doc.artist.toLowerCase().replace(" ","") } } ) })
+db.songs.remove({$where: "this.artist_lc.length > 40"})
+db.songs.createIndex({artist_lc:1})
+db.songs.createIndex({track_id:1})
+```
