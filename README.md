@@ -1,6 +1,7 @@
 # goomusic
-Couchbase demonstrative application which is basically a music search engine.
-It is still under active development. 
+
+Vert.x microservice offering a music search service on top of the lastfm dataset. It can use both mongo and couchbase backends. It is fully asyncronous and uses websockets.
+
 ```
 yum install epel-release
 yum instal git maven java-1.8.0-openjdk-devel 
